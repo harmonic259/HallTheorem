@@ -8,12 +8,6 @@ for edge in edge_list_input:
    a, b = edge.split(',')
    edges.append((a, b))
 
-# Input initial matching 
-init_matching = set()
-init_matching_list_input = input('Enter initial matches in format "v1,v2" space seperated (example: a,b c,d a,c):\n').split()
-for match in init_matching_list_input:
-   a, b = match.split(',')
-   init_matching.add(frozenset({a, b}))
 
 # Creating adjacency map of vertex to neigbors by edges   
 adjacency = dict()
@@ -45,6 +39,25 @@ def M(matches, vertices):
         elif b in vertices:
             s.add(a)
     return s
+
+# Check Hall condition
+powerset = [[]]
+for v in x_vertices: # Creating  powerset of x_vertices
+    for i in range(len(powerset)): 
+        powerset += [powerset[i]+[v]]
+        
+for subset in powerset:
+    if len(N(subset)) < len(subset):
+        print('Hall condition not satisfied!')
+        exit(0)
+
+
+# Input initial matching 
+init_matching = set()
+init_matching_list_input = input('Enter initial matches in format "v1,v2" space seperated (example: a,b c,d a,c):\n').split()
+for match in init_matching_list_input:
+   a, b = match.split(',')
+   init_matching.add(frozenset({a, b}))
 
 # First initilize crrunt matching and update it in each outer loop until all X vertices covered
 curr_matching = init_matching
