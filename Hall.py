@@ -26,7 +26,8 @@ for edge in edges:
 def N(x):
     s = set()
     for v in x:
-        s = s.union(adjacency[v])
+        if v in adjacency:
+            s = s.union(adjacency[v])
     return s
 
 # The function takes a matching and some vertices as input and returns vertices that match input vertices by the input matching
